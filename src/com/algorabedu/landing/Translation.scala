@@ -8,7 +8,7 @@ import scala.util.Using
 import cask.router.ArgReader
 import cask.endpoints.QueryParamReader
 
-case class Translation(entries: Map[String, String], fallback: Option[Translation]):
+case class Translation(language: String, entries: Map[String, String], fallback: Option[Translation]):
 
   def apply(key: String): String = entries
     .get(key)
@@ -32,7 +32,7 @@ object Translation:
           properties.load(langUtf8)
           properties.asScala.toMap
 
-    Translation(entries, fallback)
+    Translation(language, entries, fallback)
 
   def load(language: String, fallbackLanguage: String): Translation =
     load(language, Some(load(fallbackLanguage)))

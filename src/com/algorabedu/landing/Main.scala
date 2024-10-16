@@ -9,7 +9,7 @@ object Main extends cask.MainRoutes {
   
   @cask.get("/")
   def home(lang: Translation = Translation.load(Translation.FallbackLanguage)): TypedTag[String] =
-    html.index().toTag
+    html.index(lang).toTag
 
   initialize()
 }
