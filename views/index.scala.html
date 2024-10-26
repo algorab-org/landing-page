@@ -9,52 +9,82 @@
 </head>
 
 <body>
-  
-  <div class="flex flex-grow flex-col items-center min-w-screen h-screen">
-    <nav class="bg-slate-50 w-full">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="relative flex h-16 items-center justify-between">
-          <div class="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
-            <div class="flex flex-shrink-0 items-center">
-              <label class="text-3xl font-semibold text-indigo-700">Algorab</label>
-            </div>
+  <nav class="bg-slate-50 w-full fixed top-0 shadow-md">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
+          <div class="flex flex-shrink-0 items-center">
+            <label class="text-3xl font-semibold text-indigo-700">Algorab</label>
           </div>
-          <div class="flex flex-1 items-center justify-end sm:items-stretch sm:justify-end">
-            <div class="hidden sm:ml-6 sm:block justify-self-end">
-              <div class="flex space-x-4">
-                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#" class="rounded-md bg-indigo-700 px-3 py-2 text-sm font-medium text-white"
-                  aria-current="page">Dashboard</a>
-                <a href="#"
-                  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Team</a>
-                <a href="#"
-                  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Projects</a>
-                <a href="#"
-                  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Calendar</a>
-              </div>
+        </div>
+        <div class="flex flex-1 items-center justify-end sm:items-stretch sm:justify-end">
+          <div class="hidden sm:ml-6 sm:block justify-self-end">
+            <div class="flex space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a href="#" class="rounded-md bg-indigo-700 px-3 py-2 text-sm font-medium text-white"
+                aria-current="page">Dashboard</a>
+              <a href="#"
+                class="rounded-md px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Team</a>
+              <a href="#"
+                class="rounded-md px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Projects</a>
+              <a href="#"
+                class="rounded-md px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Calendar</a>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="sm:hidden" id="mobile-menu">
-        <div class="space-y-1 px-2 pb-3 pt-2">
-          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
-            aria-current="page">Dashboard</a>
-          <a href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Team</a>
-          <a href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Projects</a>
-          <a href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Calendar</a>
-        </div>
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="sm:hidden" id="mobile-menu">
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+          aria-current="page">Dashboard</a>
+        <a href="#"
+          class="block rounded-md px-3 py-2 text-base font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Team</a>
+        <a href="#"
+          class="block rounded-md px-3 py-2 text-base font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Projects</a>
+        <a href="#"
+          class="block rounded-md px-3 py-2 text-base font-medium text-indigo-700 hover:bg-indigo-400 hover:text-white">Calendar</a>
       </div>
-    </nav>
-    <div class="flex flex-col flex-1 justify-center gap-5">
-      <h1 class="text-center text-9xl font-bold mx-auto text-indigo-800">Algorab</h1>
-      <label class="text-center text-6xl font-medium text-indigo-800">@{translation("index.slogan")}</label>
+    </div>
+  </nav>
+  <div class="flex flex-grow flex-col min-w-screen">
+    <div class="flex flex-col justify-center gap-10 items-center w-full h-screen p-8">
+      <label class="text-center text-9xl font-bold mx-auto text-indigo-700 mt-auto">Algorab</label>
+      <label class="text-center text-4xl font-medium text-indigo-700">@{translation("index.slogan")}</label>
+      <div class="flex flex-row mt-auto">
+        <form>
+          <input name="email" type="email" placeholder="@translation("index.email")" class="text-xl rounded-t-md border-b-indigo-700 border-b-2 px-3 py-2">
+          <input type="submit" value="@{translation("index.subscribe")}" class="text-xl rounded-md bg-indigo-700 px-3 py-2 text-white">
+        </form>
+      </div>
+    </div>
+    <div class="flex flex-col w-full">
+      <section class="flex flex-row flex-grow min-w-full px-12 py-7 justify-center bg-indigo-700">
+        <p class="text-xl text-white text-center">@{translation("index.description")}</p>
+      </section>
+      <section class="flex flex-row flex-grow min-w-full px-12 py-7 justify-between">
+        <div class="flex flex-grow flex-col gap-5 basis-3/5">
+          <h1 class="text-4xl">@{translation("index.quickstart.title")}</h1>
+          <p class="text-xl text-justify">@{translation("index.quickstart.text")}</p>
+        </div>
+        <div class="flex flex-grow flex-col basis-2/5 gap-3">
+          <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
+            println("Hello World !")<br>
+            <br>
+            val name = ask("What's your name ?")<br>
+            println("Hello $name !")<br>
+          </code>
+          <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
+            Hello World !<br>
+            What's your name ?<br>
+            &gt; John<br>
+            Hello John !<br>
+          </code>
+        </div>
+      </section>
     </div>
   </div>
 </body>
