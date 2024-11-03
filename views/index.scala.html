@@ -51,38 +51,68 @@
     </div>
   </nav>
   <div class="flex flex-grow flex-col min-w-screen">
-    <div class="flex flex-col justify-center gap-10 items-center w-full h-screen p-8">
-      <label class="text-center text-9xl font-bold mx-auto text-indigo-700 mt-auto">Algorab</label>
-      <label class="text-center text-4xl font-medium text-indigo-700">@{translation("index.slogan")}</label>
-      <div class="flex flex-row mt-auto">
-        <form>
-          <input name="email" type="email" placeholder="@translation("index.email")" class="text-xl rounded-t-md border-b-indigo-700 border-b-2 px-3 py-2">
-          <input type="submit" value="@{translation("index.subscribe")}" class="text-xl rounded-md bg-indigo-700 px-3 py-2 text-white">
-        </form>
+    <div id="full" class="flex flex-row items-center w-full h-screen px-32 pb-8 pt-24">
+      <div class="flex flex-col justify-center h-full basis-3/5 gap-10">
+        <label class="text-center text-8xl font-bold text-indigo-700">Algorab</label>
+        <label class="text-center text-3xl font-medium text-indigo-700">@{translation("index.slogan")}</label>
+        <div class="flex flex-row mt-10 w-full justify-center">
+          <form>
+            <input name="email" type="email" placeholder="@translation("index.email")" class="text-xl rounded-t-md border-b-indigo-700 border-b-2 px-3 py-2">
+            <input type="submit" value="@{translation("index.subscribe")}" class="text-xl rounded-md bg-indigo-700 px-3 py-2 text-white">
+          </form>
+        </div>
+      </div>
+      <div class="flex flex-col justify-center h-full basis-2/5 p-10">
+        <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
+          //TODO Faire un code stylé
+        </code>
       </div>
     </div>
     <div class="flex flex-col w-full">
-      <section class="flex flex-row flex-grow min-w-full px-12 py-7 justify-center bg-indigo-700">
-        <p class="text-xl text-white text-center">@{translation("index.description")}</p>
+      <section class="flex flex-row flex-grow min-w-full px-52 py-10 justify-center bg-indigo-700">
+        <p class="text-xl text-white text-justify">@{translation("index.description")}</p>
       </section>
-      <section class="flex flex-row flex-grow min-w-full px-12 py-7 justify-between">
-        <div class="flex flex-grow flex-col gap-5 basis-3/5">
-          <h1 class="text-4xl">@{translation("index.quickstart.title")}</h1>
-          <p class="text-xl text-justify">@{translation("index.quickstart.text")}</p>
+      <section class="flex flex-col min-w-full px-52 py-40 gap-40">
+        <div class="flex flex-row flex-grow min-w-full justify-around gap-16">
+          <div class="flex flex-grow flex-col gap-5 basis-1/2 justify-evenly">
+            <h1 class="text-4xl">@{translation("index.quickstart.title")}</h1>
+            <p class="text-xl text-justify">@{translation("index.quickstart.text")}</p>
+          </div>
+          <div class="flex flex-grow flex-col basis-1/2 gap-3">
+            <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
+              println("Hello World !")<br>
+              <br>
+              val name = ask("What's your name ?")<br>
+              println("Hello $name !")<br>
+            </code>
+            <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
+              Hello World !<br>
+              What's your name ?<br>
+              &gt; John<br>
+              Hello John !<br>
+            </code>
+          </div>
         </div>
-        <div class="flex flex-grow flex-col basis-2/5 gap-3">
-          <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
-            println("Hello World !")<br>
-            <br>
-            val name = ask("What's your name ?")<br>
-            println("Hello $name !")<br>
-          </code>
-          <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
-            Hello World !<br>
-            What's your name ?<br>
-            &gt; John<br>
-            Hello John !<br>
-          </code>
+        <div class="flex flex-row-reverse flex-grow min-w-full justify-around gap-16">
+          <div class="flex flex-grow flex-col gap-5 basis-1/2 justify-evenly">
+            <h1 class="text-4xl">@{translation("index.assistance.title")}</h1>
+            <p class="text-xl text-justify">@{translation("index.assistance.text")}</p>
+          </div>
+          <div class="flex flex-grow flex-col basis-1/2 gap-3">
+            <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
+              record User(name: String, age: Int)
+
+              val user = User("John", 20)
+              println("Hello ${user.username} !")
+            </code>
+            <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg whitespace-pre">Error: Unknown record field.
+              
+  At ./myscript.algo, line 4, character 22
+  println("Hello ${user.username} !")
+                   ^^^^^^^^^^^^^
+  user is of type User
+  Did you mean user.name ?</code>
+          </div>
         </div>
       </section>
     </div>

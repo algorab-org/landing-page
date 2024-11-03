@@ -2,3 +2,7 @@ index.slogan=Le langage conçu pour l'enseignement efficace de la programmation
 index.email=votremail@exemple.fr
 index.subscribe=S'inscrire à la newsletter
 index.description=Algorab est un langage de programmation pensé pour répondre aux besoins pédagogiques des professeur du supérieur et du lycée dans l'enseignement de l'algorithmie et des bases de la programmation. Inspiré par les recherches de ces dernières décennies, Algorab favorise l'apprentissage efficace de l'algorithmie et des bonnes pratiques de programmation.
+index.quickstart.title=Une courbe d'apprentissage douce pour une entrée rapide dans le vif du sujet
+index.quickstart.text=Algorab est conçu pour être facilement pris en main. Une syntaxe intuitive pour pouvoir être comprise par un novice combinée à des bases saines qui synergisent pour être versatiles tout en restant simples permet à l'enseignant et les étudiants de se focaliser sur les notions vraiment importantes : l'intention et la conception.
+index.assistance.title=Un accompagnement actif des étudiants dans leur apprentissage
+index.assistance.text=Le système d'analyse de code avancé intégré permet aux étudiants de dialoguer avec le langage pour comprendre et résoudre leurs erreurs ainsi que de perfectionner leur travail en favorisant l'autonomie. L'apprentissage est ainsi plus efficace permettant à l'enseignant de poursuivre son cours plus rapidement en limitant les risques de décrochage.
