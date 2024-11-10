@@ -1,9 +1,10 @@
 import $ivy.`com.lihaoyi::mill-contrib-twirllib:`
+import $file.`dotenv`
 import $file.`tailwind`
 
-import mill._, scalalib._, twirllib._, tailwind._
+import mill._, scalalib._, twirllib._, dotenv._, tailwind._
 
-object main extends RootModule with ScalaModule with TwirlModule with TailwindModule {
+object main extends RootModule with ScalaModule with TwirlModule with TailwindModule with DotEnvModule {
 
   def scalaVersion = "3.5.1"
   def twirlVersion = "1.6.6"

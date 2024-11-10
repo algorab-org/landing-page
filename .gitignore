@@ -1,5 +1,6 @@
 .bloop
 .bsp
+.env
 .metals
 .vscode
 node_modules
