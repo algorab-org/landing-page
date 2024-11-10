@@ -19,5 +19,7 @@ object main extends RootModule with ScalaModule with TwirlModule with TailwindMo
     ivy"com.lihaoyi::cask:0.9.2",
     ivy"com.lihaoyi::scalatags:0.13.1",
     ivy"com.typesafe.play::twirl-api:${twirlVersion()}",
+    ivy"io.github.iltotore::iron:2.6.0",
+    ivy"io.github.iltotore::iron-doobie:2.6.0"
   )
 }

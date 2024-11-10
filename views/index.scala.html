@@ -1,10 +1,12 @@
 @import com.algorabedu.landing.Translation
+
 @(translation: Translation)
 
 <head lang="@{translation.language}">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/public/output.css" />
+  <script src="/public/js/index.js"></script>
   <title>@{translation("index.title")}</title>
 </head>
 
@@ -39,11 +41,15 @@
       <div class="flex flex-col justify-center h-full basis-3/5 gap-10">
         <label class="text-center text-8xl font-bold text-indigo-700">Algorab</label>
         <label class="text-center text-3xl font-medium text-indigo-700">@{translation("index.slogan")}</label>
-        <div class="flex flex-row mt-10 w-full justify-center">
-          <form>
-            <input name="email" type="email" placeholder="@translation("index.email")" class="text-xl rounded-t-md border-b-indigo-700 border-b-2 px-3 py-2">
-            <input type="submit" value="@{translation("index.subscribe")}" class="text-xl rounded-md bg-indigo-700 px-3 py-2 text-white">
-          </form>
+        <div class="flex flex-col mt-10 w-full items-center">
+          <div class="flex flex-row w-full justify-center">
+            <form id="subscription_form">
+              <input type="hidden" name="lang" value="@(translation.language)">
+              <input type="email" name="email" placeholder="@translation("index.email")" class="text-xl rounded-t-md border-b-indigo-700 border-b-2 px-3 py-2">
+              <input type="button" onclick="subscribe()" value="@{translation("index.subscribe")}" class="text-xl rounded-md bg-indigo-700 px-3 py-2 text-white">
+            </form>
+          </div>
+          <p id="subscription_result"></p>
         </div>
       </div>
       <div class="flex flex-col justify-center h-full basis-2/5 p-10">
