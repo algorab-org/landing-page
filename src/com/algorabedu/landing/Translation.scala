@@ -23,13 +23,14 @@ object Translation:
 
   def load(language: String, fallback: Option[Translation] = None): Translation =
     val entries =
-      val properties = Properties()
-      val langResource = getClass.getResourceAsStream(s"/lang/$language.lang")
+      val langResource = os.resource / "lang" / s"$language.lang"
+      val langStream = langResource.getInputStream
 
-      if langResource == null then Map.empty
+      if langStream == null then Map.empty
       else
-        Using.resource(new InputStreamReader(langResource, StandardCharsets.UTF_8)): langUtf8 =>
-          properties.load(langUtf8)
+        Using.resource(InputStreamReader(langStream, StandardCharsets.UTF_8)): data =>
+          val properties = Properties()
+          properties.load(data)
           properties.asScala.toMap
 
     Translation(language, entries, fallback)

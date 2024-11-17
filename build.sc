@@ -4,7 +4,7 @@ import $file.`tailwind`
 
 import mill._, scalalib._, twirllib._, dotenv._, tailwind._
 
-object main extends RootModule with ScalaModule with TwirlModule with TailwindModule with DotEnvModule {
+object `package` extends RootModule with ScalaModule with TwirlModule with TailwindModule with DotEnvModule {
 
   def scalaVersion = "3.5.1"
   def twirlVersion = "1.6.6"
@@ -19,8 +19,10 @@ object main extends RootModule with ScalaModule with TwirlModule with TailwindMo
   def ivyDeps = Agg(
     ivy"com.lihaoyi::cask:0.9.2",
     ivy"com.lihaoyi::scalatags:0.13.1",
+    ivy"com.lihaoyi::scalasql:0.1.11",
+    ivy"com.lihaoyi::os-lib:0.11.3",
     ivy"com.typesafe.play::twirl-api:${twirlVersion()}",
     ivy"io.github.iltotore::iron:2.6.0",
-    ivy"com.lihaoyi::scalasql:0.1.11"
+    ivy"org.postgresql:postgresql:42.7.4"
   )
 }
