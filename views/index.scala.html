@@ -94,9 +94,8 @@
   case Append(head: Element, tail: LinkedList[Element])
 
   def append(element: Element): LinkedList[Element] = this match
-    case Nil then Append(head, Nil)
-    case Append(head, tail) then
-      Append(head, tail.append(element))</code>
+    case Nil                then Append(head, Nil)
+    case Append(head, tail) then Append(head, tail.append(element))</code>
           </div>
         </div>
         <div class="flex flex-row flex-grow min-w-full justify-around gap-16">
@@ -133,12 +132,9 @@ Create a new user.
 - return a new User with the given fields.
 */
 def createUser(name: String, age: Int): Either[UserError, User] =
-  if name.isBlank then
-    Left(UserError.BlankName)
-  else if age &lt;= 0 then
-    Left(UserError.NegativeAge)
-  else
-    User(name, age)
+  if name.isBlank  then Left(UserError.BlankName)
+  else if age &lt;= 0 then Left(UserError.NegativeAge)
+  else User(name, age)
 
 test createUser with
   assert(createUser("", 23) == Left(UserError.BlankName))
