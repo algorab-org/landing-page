@@ -37,25 +37,33 @@
     </div>
   </nav>
   <div class="flex flex-grow flex-col min-w-screen">
-    <div id="full" class="flex flex-row items-center w-full h-screen px-32 pb-8 pt-24">
-      <div class="flex flex-col justify-center h-full basis-3/5 gap-10">
+    <div id="full" class="flex flex-row items-center w-full h-screen px-32 pb-8 pt-24 gap-10">
+      <div class="flex flex-col justify-center h-full basis-1/2 gap-10">
         <label class="text-center text-8xl font-bold text-indigo-700">Algorab</label>
         <label class="text-center text-3xl font-medium text-indigo-700">@{translation("index.slogan")}</label>
-        <div class="flex flex-col mt-10 w-full items-center">
-          <div class="flex flex-row w-full justify-center">
-            <form id="subscription_form">
+        <div class="flex flex-col mt-10 w-full items-center justify-center">
+            <form id="subscription_form" class="flex flex-row w-full justify-center">
               <input type="hidden" name="lang" value="@(translation.language)">
               <input type="email" name="email" placeholder="@translation("index.email")" class="text-xl rounded-t-md border-b-indigo-700 border-b-2 px-3 py-2">
               <input type="button" onclick="subscribe()" value="@{translation("index.subscribe")}" class="text-xl rounded-md bg-indigo-700 px-3 py-2 text-white">
             </form>
-          </div>
           <p id="subscription_result"></p>
         </div>
       </div>
-      <div class="flex flex-col justify-center h-full basis-2/5 p-10">
-        <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg">
-          //TODO Faire un code stylé
-        </code>
+      <div class="flex flex-col justify-center h-full basis-1/2 min-w-0">
+        <code class="bg-indigo-950 text-white p-4 rounded-lg whitespace-pre min-w-0 overflow-x-scroll">enum Tree[cov Element]:
+  case Leaf(value: Element)
+  case Node(value: Element, children: NonEmptyList[Tree[Element]])
+
+-- Root is min
+def minMax[Element](tree: Element): Tree[Element] = tree match
+  case Leaf(value)       => value
+  case Node(_, children) => children.map(maxMin).minimum
+
+-- Root is max
+def maxMin[Element](tree: Element): Tree[Element] = tree match
+  case Leaf(value)       => value
+  case Node(_, children) => children.map(minMax).maximum</code>
       </div>
     </div>
     <div class="flex flex-col w-full">
@@ -108,12 +116,12 @@
               record User(name: String, age: Int)<br>
               <br>
               val user = User("John", 20)<br>
-              println("Hello ${user.username} !")
+              println("Hello $(user.username) !")
             </code>
             <code class="flex-grow bg-indigo-950 text-white p-4 rounded-lg whitespace-pre">Error: Unknown record field.
               
   At ./myscript.algo, line 4, character 22
-  println("Hello ${user.username} !")
+  println("Hello $(user.username) !")
                    ^^^^^^^^^^^^^
   Hint: user is of type User.
         Did you mean user.name ?</code>
@@ -125,12 +133,12 @@
             <p class="text-xl text-justify">@{translation("index.professionalisation.text")}</p>
           </div>
           <div class="flex flex-col basis-1/2 gap-3 min-w-0">
-            <code class="bg-indigo-950 text-white p-4 rounded-lg whitespace-pre overflow-x-scroll">/*
+            <code class="bg-indigo-950 text-white p-4 rounded-lg whitespace-pre overflow-x-scroll">---
 Create a new user.
 - param name the user's name. Should not be empty.
 - param age the user's age. Should be positive.
 - return a new User with the given fields.
-*/
+---
 def createUser(name: String, age: Int): Either[UserError, User] =
   if name.isBlank  then Left(UserError.BlankName)
   else if age &lt;= 0 then Left(UserError.NegativeAge)
