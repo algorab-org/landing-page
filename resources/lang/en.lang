@@ -1,1 +1,12 @@
-index.title=Algorab: learn programming efficiently
+index.slogan=The programming language designed for education
+index.email=yourmail@example.fr
+index.subscribe=Subscribe to newsletter
+index.subscription.subscribed=Successfully subscribed to newsletter
+index.subscription.unsubscribed=Successfully unsubscribed to newsletter
+index.subscription.alreadysubscribed=You are already subscribed to the newsletter
+index.subscription.invalidemail=Invalid email
+index.subscription.miscallaneouserror=An error occurred
+index.description=Algorab is a programming language to fulfill the educational needs in high and higher education for teaching programming and algorithms. Inspired by the research of the last few decades, Algorab promotes effective learning of algorithms and good programming practices.
+index.quickstart.title=A smooth learning curve for getting started quickly
+index.quickstart.text=Algorab is designed to be easy to learn. Ergonomic tooling, intuitive syntax and simple semantics help to reduce setup time and jump to the heart of the matter.
+index.expressivity.title=An expressive language

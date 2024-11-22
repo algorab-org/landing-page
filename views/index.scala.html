@@ -135,8 +135,8 @@ def maxMin[Element](tree: Element): Tree[Element] = tree match
           <div class="flex flex-col basis-1/2 gap-3 min-w-0">
             <code class="bg-indigo-950 text-white p-4 rounded-lg whitespace-pre overflow-x-scroll">---
 Create a new user.
-- param name the user's name. Should not be empty.
-- param age the user's age. Should be positive.
+- param  name the user's name. Should not be empty.
+- param  age the user's age. Should be positive.
 - return a new User with the given fields.
 ---
 def createUser(name: String, age: Int): Either[UserError, User] =
@@ -145,8 +145,11 @@ def createUser(name: String, age: Int): Either[UserError, User] =
   else User(name, age)
 
 test createUser with
-  assert(createUser("", 23) == Left(UserError.BlankName))
-  assert(createUser("Sofia", -5) == Left(UserError.NegativeAge))</code>
+  assert(
+    createUser("Sofia", 23) == Right(User("Sofia", 23))
+    createUser("", 23)      == Left(UserError.BlankName)
+    createUser("Sofia", -5) == Left(UserError.NegativeAge)
+  )</code>
           </div>
         </div>
       </section>
