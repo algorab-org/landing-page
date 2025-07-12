@@ -7,7 +7,6 @@ import scalasql.core.SqlStr
 import scalasql.core.SqlStr.SqlStringSyntax
 import scalatags.Text.TypedTag
 import java.nio.charset.StandardCharsets
-import com.algorabedu.Email
 
 object Main extends cask.MainRoutes:
 
@@ -24,7 +23,7 @@ object Main extends cask.MainRoutes:
   
   @cask.get("/")
   def home(lang: Translation = Translation.load(Translation.FallbackLanguage)): TypedTag[String] =
-    html.index(lang).toTag
+    page.home(using lang)
 
   @cask.postForm("/subscribe")
   def subscribe(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
@@ -42,7 +41,23 @@ object Main extends cask.MainRoutes:
 
     ujson.Obj(
       "successful" -> result.successful,
-      "message" -> lang(result.translationKey)
+      "message"    -> lang(result.translationKey)
+    )
+
+  @cask.postForm("/unsubscribe")
+  def unsubscribe(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
+    val result = Email.option(email).fold(SubscriptionResult.InvalidEmail): _ =>
+      try
+        postgresClient.transaction: db =>
+          db.updateRaw("DELETE FROM newsletter WHERE email = ?", Seq(email))
+          SubscriptionResult.Unsubscribed
+      catch e =>
+        e.printStackTrace()
+        SubscriptionResult.MiscellaneousError
+
+    ujson.Obj(
+      "successful" -> result.successful,
+      "message"    -> lang(result.translationKey)
     )
 
   override def main(args: Array[String]): Unit =

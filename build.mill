@@ -1,0 +1,22 @@
+import $ivy.`com.lihaoyi::mill-contrib-twirllib:`
+import $ivy.`io.github.iltotore::mill-tailwind::0.1.0`
+import $file.`dotenv`
+
+import mill._, dotenv._, scalalib._, scalafmt._
+import io.github.iltotore.tailwind.TailwindModule
+
+object `package` extends RootModule with ScalaModule with ScalafmtModule with TailwindModule with DotEnvModule {
+
+  def scalaVersion = "3.5.1"
+  def tailwindVersion = "4.1.8"
+
+  def ivyDeps = Agg(
+    ivy"com.lihaoyi::cask:0.9.2",
+    ivy"com.lihaoyi::os-lib:0.11.3",
+    ivy"com.lihaoyi::scalatags:0.13.1",
+    ivy"com.lihaoyi::scalasql:0.1.11",
+    ivy"dev.zio::zio-parser:0.1.11",
+    ivy"io.github.iltotore::iron:2.6.0",
+    ivy"org.postgresql:postgresql:42.7.4"
+  )
+}

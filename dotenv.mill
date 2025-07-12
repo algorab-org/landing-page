@@ -1,3 +1,5 @@
+package build
+
 import mill._, scalalib._
 
 //File taken from https://github.com/vic/mill-dotenv

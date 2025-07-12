@@ -9,7 +9,6 @@ enum SubscriptionResult:
 
   def successful = this match
     case Subscribed | Unsubscribed | AlreadySubscribed => true
-    case InvalidEmail | MiscellaneousError => false
+    case InvalidEmail | MiscellaneousError             => false
 
   val translationKey: String = "index.subscription." + this.toString.toLowerCase
-  

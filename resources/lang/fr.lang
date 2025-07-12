@@ -1,6 +1,7 @@
 index.slogan=Le langage conçu pour l'enseignement efficace de la programmation
 index.email=votremail@exemple.fr
 index.subscribe=S'inscrire à la newsletter
+index.unsubscribe=Se désinscrire
 index.subscription.subscribed=Inscription à la newsletter réussie
 index.subscription.unsubscribed=Désinscription de la newsletter réussie
 index.subscription.alreadysubscribed=Vous êtes déjà inscrit à la newsletter
@@ -18,3 +19,4 @@ index.professionalisation.text=Par son design, Algorab incite à l'utilisation d
 index.opensource.title=Fièrement open-source
 index.opensource.text=L'ONU recommande l'utilisation de l'open-source dans le domaine de l'éducation. Dans sa volonté de participer à la construction d'un monde durable, Algorab se veut accessible au plus grand nombre avec la possibilité pour chacun de l'étudier et d'y contribuer. 
 index.copyright=© 2024 Algorab
+index.more=En savoir plus

@@ -1,12 +1,12 @@
 package com.algorabedu.landing
 
+import cask.endpoints.QueryParamReader
+import cask.router.ArgReader
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import java.util.Properties
 import scala.jdk.CollectionConverters.PropertiesHasAsScala
 import scala.util.Using
-import cask.router.ArgReader
-import cask.endpoints.QueryParamReader
 
 case class Translation(language: String, entries: Map[String, String], fallback: Option[Translation]):
 
