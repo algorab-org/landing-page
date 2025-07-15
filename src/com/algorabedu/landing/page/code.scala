@@ -54,6 +54,7 @@ private val keywords: List[String] = List(
   "match",
   "test",
   "then",
+  "this",
   "val",
   "with",
   "while",

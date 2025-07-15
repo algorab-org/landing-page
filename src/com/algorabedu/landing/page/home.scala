@@ -73,15 +73,15 @@ lazy val professionalisationCode: TypedTag[String] =
       |- param  age the user's age. Should be positive.
       |- return a new User with the given fields.
       |---
-      |def createUser(name: String, age: Int): User can Abort[UserError] =
-      |  if name.isBlank then abort(UserError.BlankName)
-      |  else if age < 0 then abort(UserError.NegativeAge)
+      |def createUser(name: String, age: Int): User can Throw[UserError] =
+      |  if name.isBlank then throw(UserError.BlankName)
+      |  else if age < 0 then throw(UserError.NegativeAge)
       |  else User(name, age)
       |
       |test createUser with
       |  assertEquals(createUser("Sofia", 23), User("Sofia", 23))
-      |  assertAbort(createUser("", 23), UserError.BlankName)
-      |  assertAbort(createUser("Sofia", -23), UserError.NegativeAge)""".stripMargin
+      |  assertThrows(createUser("", 23), UserError.BlankName)
+      |  assertThrows(createUser("Sofia", -23), UserError.NegativeAge)""".stripMargin
   )
 
 def navbar(using translation: Translation) =
