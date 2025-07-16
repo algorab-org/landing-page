@@ -6,9 +6,17 @@ import scalasql.PostgresDialect.*
 import scalasql.core.SqlStr
 import scalasql.core.SqlStr.SqlStringSyntax
 import scalatags.Text.TypedTag
+import scalatags.Text.all.*
 import java.nio.charset.StandardCharsets
+import courier.*
+import javax.mail.internet.InternetAddress
+import scala.util.Success
+import scala.util.Failure
+import scala.concurrent.duration.DurationInt
 
 object Main extends cask.MainRoutes:
+
+  val domain = sys.env.getOrElse("DOMAIN", "localhost:8080")
 
   val dataSource = PGSimpleDataSource()
   dataSource.setURL(sys.env("DATABASE_URL"))
@@ -17,6 +25,13 @@ object Main extends cask.MainRoutes:
   dataSource.setPassword(sys.env("DATABASE_PASSWORD"))
 
   lazy val postgresClient = DbClient.DataSource(dataSource)
+
+  val mailer =
+    Mailer(sys.env("MAIL_HOST"), sys.env("MAIL_PORT").toInt)
+      .debug(true)
+      .auth(true)
+      .as(sys.env("MAIL_USER"), sys.env("MAIL_PASSWORD"))
+      .startTls(true)()
 
   @cask.staticResources("/public")
   def publicRoutes() = "public"
@@ -32,6 +47,22 @@ object Main extends cask.MainRoutes:
         postgresClient.transaction: db =>
           if db.runRaw[Int]("SELECT count(*) FROM newsletter WHERE email = ?", Seq(email)).sum == 0 then
             db.updateRaw("INSERT INTO newsletter VALUES (?)", Seq(email))
+            mailer(
+              Envelope
+                .from("newsletter" `@` "algorab.org")
+                .to(InternetAddress(email))
+                .subject(lang("newsletter.subscribe.subject"))
+                .content(mailContent(
+                  lang.language,
+                  h1(lang("newsletter.subscribe.title")),
+                  p(lang("newsletter.subscribe.description")),
+                  a(href := s"http://$domain/unsubscribe?lang=${lang.language}&email=$email", lang("index.unsubscribe"))
+                ))
+            )
+            .onComplete:
+              case Success(_) =>
+              case Failure(exception) => exception.printStackTrace()
+
             SubscriptionResult.Subscribed
           else
             SubscriptionResult.AlreadySubscribed
@@ -44,9 +75,8 @@ object Main extends cask.MainRoutes:
       "message"    -> lang(result.translationKey)
     )
 
-  @cask.postForm("/unsubscribe")
-  def unsubscribe(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
-    val result = Email.option(email).fold(SubscriptionResult.InvalidEmail): _ =>
+  private def unsubscribeMail(email: String): SubscriptionResult =
+    Email.option(email).fold(SubscriptionResult.InvalidEmail): _ =>
       try
         postgresClient.transaction: db =>
           db.updateRaw("DELETE FROM newsletter WHERE email = ?", Seq(email))
@@ -55,10 +85,19 @@ object Main extends cask.MainRoutes:
         e.printStackTrace()
         SubscriptionResult.MiscellaneousError
 
+  @cask.postForm("/unsubscribe")
+  def unsubscribe(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
+    val result = unsubscribeMail(email)
+
     ujson.Obj(
       "successful" -> result.successful,
       "message"    -> lang(result.translationKey)
     )
+
+  @cask.get("/unsubscribe")
+  def unsubscribeGet(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
+    if unsubscribeMail(email).successful then page.unsubscribe(email)(using lang)
+    else page.home(using lang)
 
   override def main(args: Array[String]): Unit =
     val initResource = os.resource / "init.sql"
