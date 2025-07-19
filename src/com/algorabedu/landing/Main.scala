@@ -52,12 +52,7 @@ object Main extends cask.MainRoutes:
                 .from("newsletter" `@` "algorab.org")
                 .to(InternetAddress(email))
                 .subject(lang("newsletter.subscribe.subject"))
-                .content(mailContent(
-                  lang.language,
-                  h1(lang("newsletter.subscribe.title")),
-                  p(lang("newsletter.subscribe.description")),
-                  a(href := s"http://$domain/unsubscribe?lang=${lang.language}&email=$email", lang("index.unsubscribe"))
-                ))
+                .content(Multipart().html(mail.subscribed(email, domain)(using lang).render))
             )
             .onComplete:
               case Success(_) =>
@@ -98,6 +93,10 @@ object Main extends cask.MainRoutes:
   def unsubscribeGet(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
     if unsubscribeMail(email).successful then page.unsubscribe(email)(using lang)
     else page.home(using lang)
+
+  @cask.get("/preview")
+  def preview() =
+    mail.subscribed("foo@bar.com", "localhost:8080")(using Translation.load("fr"))
 
   override def main(args: Array[String]): Unit =
     val initResource = os.resource / "init.sql"
