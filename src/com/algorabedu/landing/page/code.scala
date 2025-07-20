@@ -52,6 +52,7 @@ private val keywords: List[String] = List(
   "for",
   "if",
   "match",
+  "record",
   "test",
   "then",
   "this",

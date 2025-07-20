@@ -61,3 +61,11 @@ def alertError(modifiers: Modifier*)(msg: String): TypedTag[String] =
     span("Error! Task failed successfully."),
     modifiers
   )
+
+def newsletterButton(text: String)(modifiers: Modifier*): TypedTag[String] =
+  button(
+    cls := "btn-newsletter swap swap-active",
+    span(cls := "swap-on", text),
+    span(cls := "swap-off loading loading-spinner place-self-center"),
+    modifiers
+  )

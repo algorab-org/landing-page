@@ -20,8 +20,8 @@ function errorAlert(msg) {
     `
 }
 
-function onSubmit() {
-  subscribe();
+function onSubmit(form) {
+  subscribe(form);
   return false;
 }
 
@@ -37,14 +37,18 @@ function displayResult(result) {
   setTimeout(() => alertToast.remove(), 4000)
 }
 
-async function subscribe() {
-  const form = document.getElementById("subscription_form")
+async function subscribe(form) {
+  const buttons = Array.from(document.getElementsByClassName("btn-newsletter"))
   const data = new FormData(form)
+
+  buttons.forEach(btn => btn.classList.remove("swap-active"));
   
   const response = await fetch("/subscribe", {
     method: "POST",
     body: data
   })
+  
+  buttons.forEach(btn => btn.classList.add("swap-active"));
 
   displayResult(await response.json())
 }

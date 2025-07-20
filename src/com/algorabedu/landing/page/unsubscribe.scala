@@ -33,10 +33,9 @@ def unsubscribe(email: String)(using lang: Translation) =
             onsubmit := "return onSubmit()",
             input(`type` := "hidden", name := "lang", value := lang.language),
             input(tpe := "hidden", name := "email", value := email),
-            input(
-              tpe := "submit",
+            newsletterButton(tr"unsubscribe.resubscribe")(
               cls := "btn btn-xl btn-primary",
-              value := tr"unsubscribe.resubscribe"
+              tpe := "submit"
             )
           ),
           a(

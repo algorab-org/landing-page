@@ -49,12 +49,12 @@ lazy val quickStartCode: TypedTag[String] =
 lazy val expressivityCode: TypedTag[String] =
   numberedCode(cls := "overflow-x-auto")(
     """enum LinkedList[Element]:
-      |  case Nil
-      |  case Prepend(head: Element, tail: LinkedList[Element])
+      |  case Empty
+      |  case Node(head: Element, tail: LinkedList[Element])
       |
       |  def append(element: Element): LinkedList[Element] = this match
-      |    case Nil                 then Prepend(head, Nil)
-      |    case Prepend(head, tail) then Prepend(head, tail.append(element))""".stripMargin
+      |    case Empty            then Node(head, Empty)
+      |    case Node(head, tail) then Node(head, tail.append(element))""".stripMargin
   )
 
 lazy val assitanceCode: TypedTag[String] =
@@ -140,7 +140,7 @@ def headerPart(using lang: Translation) =
           onsubmit := "return onSubmit()",
           input(`type` := "hidden", name := "lang", value := lang.language),
           div(
-            cls := "w-full",
+            cls := "w-full flex flex-col gap-2",
             label(
               cls := "input validator join-item w-full",
               svg(
@@ -171,10 +171,9 @@ def headerPart(using lang: Translation) =
             ),
             div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
           ),
-          input(
+          newsletterButton(tr"index.subscribe")(
             cls := "btn btn-primary join-item",
-            `type` := "submit",
-            value := tr"index.subscribe"
+            tpe := "submit"
           )
         )
       ),
@@ -209,8 +208,8 @@ def featureHero(reversed: Boolean, sectionId: String)(codeModifiers: Modifier*)(
       div(
         cls := "flex flex-col basis-1/2 items-center lg:items-start",
         h1(cls := "text-4xl", tr"index.$sectionId.title"),
-        p(cls := "py-6 text-justify", tr"index.$sectionId.text"),
-        button(cls := "btn btn-primary", tr"index.more")
+        p(cls := "py-6 text-justify", tr"index.$sectionId.text")
+        // button(cls := "btn btn-primary", tr"index.more")
       ),
       div(cls := "basis-1/2 min-w-0", codeModifiers)
     )
@@ -259,6 +258,61 @@ def openSourcePart(using Translation) =
     )
   )
 
+def indevPart(using lang: Translation) =
+  div(
+    cls := "min-w-full px-52 py-10 flex flex-col gap-5 bg-base-200 justify-center items-center",
+    h1(
+      cls := "text-4xl text-neutral text-center",
+      tr"index.indev.title"
+    ),
+    p(
+      cls := "text-xl text-neutral text-center",
+      tr"index.indev.text"
+    ),
+    form(
+      id := "subscription_form",
+      cls := "join max-w-2xl px-10 py-10",
+      onsubmit := "return onSubmit(this)",
+      input(`type` := "hidden", name := "lang", value := lang.language),
+      div(
+        cls := "w-full flex flex-col gap-2",
+        label(
+          cls := "input validator join-item w-full",
+          svg(
+            cls := "h-[1em] opacity-50",
+            xmlns := "http://www.w3.org/2000/svg",
+            viewBox := "0 0 24 24",
+            g(
+              attr("stroke-linejoin") := "round",
+              attr("stroke-linecap") := "round",
+              attr("stroke-width") := "2.5",
+              fill := "none",
+              stroke := "currentColor",
+              rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
+              path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+            )
+          ),
+          input(
+            `type` := "email",
+            name := "email",
+            placeholder := "mail@site.com",
+            required
+          )
+        ),
+        a(
+          cls := "link text-sm",
+          onclick := "unsubscribe()",
+          tr"index.unsubscribe"
+        ),
+        div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
+      ),
+      newsletterButton(tr"index.subscribe")(
+        cls := "btn btn-primary join-item",
+        tpe := "submit"
+      )
+    )
+  )
+
 def footerPart(using Translation) =
   footer(
     cls := "footer footer-horizontal footer-center bg-base-200 text-neutral p-10",
@@ -282,6 +336,7 @@ def home(using Translation) =
       descriptionPart,
       featuresPart,
       openSourcePart,
+      indevPart,
       footerPart
     )
   )
