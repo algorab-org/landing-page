@@ -66,7 +66,7 @@ lazy val assitanceCode: TypedTag[String] =
   )
 
 lazy val professionalisationCode: TypedTag[String] =
-  numberedCode(cls := "overflow-x-auto language-scala")(
+  numberedCode(cls := "overflow-x-auto")(
     """---
       |Create a new user.
       |- param  name the user's name. Should not be empty.
@@ -137,7 +137,7 @@ def headerPart(using lang: Translation) =
         form(
           id := "subscription_form",
           cls := "join w-full px-10",
-          onsubmit := "return onSubmit()",
+          onsubmit := "return onSubmit(this)",
           input(`type` := "hidden", name := "lang", value := lang.language),
           div(
             cls := "w-full flex flex-col gap-2",
@@ -183,8 +183,11 @@ def headerPart(using lang: Translation) =
 
 def pageSection(modifiers: Modifier*)(using Translation) =
   div(
-    cls := "min-w-full px-52 py-10 justify-center bg-primary",
-    modifiers
+    cls := "flex flex-row min-w-full py-10 justify-center bg-primary",
+    div(
+      cls := "max-w-5xl justify-center",
+      modifiers
+    )
   )
 
 def descriptionPart(using Translation) =
@@ -217,32 +220,35 @@ def featureHero(reversed: Boolean, sectionId: String)(codeModifiers: Modifier*)(
 
 def featuresPart(using Translation) =
   div(
-    cls := "w-full flex flex-col gap-16 py-16 bg-base-200",
-    featureHero(false, "quickstart")(
-      cls := "flex flex-col gap-3",
-      quickStartCode,
-      prefixedCode(cls := "overflow-x-auto")(
-        "" -> "Hello World",
-        "" -> "What's your name?",
-        ">" -> "Alice",
-        "" -> "Hello Alice!"
-      )
-    ),
-    featureHero(true, "expressivity")(expressivityCode),
-    featureHero(false, "assistance")(
-      cls := "flex flex-col gap-3",
-      assitanceCode,
-      unprefixedCode(cls := "overflow-x-auto")(
-        """Error: Unknown record field.
-          |
-          |At ./myscript.algo, line 4, character 22
-          |println("Hello ${user.username} !")
-          |                 ^^^^^^^^^^^^^
-          |Hint: user is of type User.
-          |      Did you mean user.name?""".stripMargin
-      )
-    ),
-    featureHero(true, "professionalisation")(professionalisationCode)
+    cls := "w-full flex flex-row justify-center py-16 bg-base-200",
+    div(
+      cls := "flex flex-col gap-16 max-w-5l",
+      featureHero(false, "quickstart")(
+        cls := "flex flex-col gap-3",
+        quickStartCode,
+        prefixedCode(cls := "overflow-x-auto")(
+          "" -> "Hello World",
+          "" -> "What's your name?",
+          ">" -> "Alice",
+          "" -> "Hello Alice!"
+        )
+      ),
+      featureHero(true, "expressivity")(expressivityCode),
+      featureHero(false, "assistance")(
+        cls := "flex flex-col gap-3",
+        assitanceCode,
+        unprefixedCode(cls := "overflow-x-auto")(
+          """Error: Unknown record field.
+            |
+            |At ./myscript.algo, line 4, character 22
+            |println("Hello ${user.username} !")
+            |                 ^^^^^^^^^^^^^
+            |Hint: user is of type User.
+            |      Did you mean user.name?""".stripMargin
+        )
+      ),
+      featureHero(true, "professionalisation")(professionalisationCode)
+    )
   )
 
 def openSourcePart(using Translation) =
@@ -260,55 +266,58 @@ def openSourcePart(using Translation) =
 
 def indevPart(using lang: Translation) =
   div(
-    cls := "min-w-full px-52 py-10 flex flex-col gap-5 bg-base-200 justify-center items-center",
-    h1(
-      cls := "text-4xl text-neutral text-center",
-      tr"index.indev.title"
-    ),
-    p(
-      cls := "text-xl text-neutral text-center",
-      tr"index.indev.text"
-    ),
-    form(
-      id := "subscription_form",
-      cls := "join max-w-2xl px-10 py-10",
-      onsubmit := "return onSubmit(this)",
-      input(`type` := "hidden", name := "lang", value := lang.language),
-      div(
-        cls := "w-full flex flex-col gap-2",
-        label(
-          cls := "input validator join-item w-full",
-          svg(
-            cls := "h-[1em] opacity-50",
-            xmlns := "http://www.w3.org/2000/svg",
-            viewBox := "0 0 24 24",
-            g(
-              attr("stroke-linejoin") := "round",
-              attr("stroke-linecap") := "round",
-              attr("stroke-width") := "2.5",
-              fill := "none",
-              stroke := "currentColor",
-              rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
-              path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+    cls := "flex flex-row min-w-full py-10 bg-base-200 justify-center",
+    div(
+      cls := "flex flex-col max-w-5xl gap-5 justify-center items-center",
+      h1(
+        cls := "text-4xl text-neutral text-center",
+        tr"index.indev.title"
+      ),
+      p(
+        cls := "text-xl text-neutral text-center",
+        tr"index.indev.text"
+      ),
+      form(
+        id := "subscription_form",
+        cls := "join max-w-2xl px-10 py-10",
+        onsubmit := "return onSubmit(this)",
+        input(`type` := "hidden", name := "lang", value := lang.language),
+        div(
+          cls := "w-full flex flex-col gap-2",
+          label(
+            cls := "input validator join-item w-full",
+            svg(
+              cls := "h-[1em] opacity-50",
+              xmlns := "http://www.w3.org/2000/svg",
+              viewBox := "0 0 24 24",
+              g(
+                attr("stroke-linejoin") := "round",
+                attr("stroke-linecap") := "round",
+                attr("stroke-width") := "2.5",
+                fill := "none",
+                stroke := "currentColor",
+                rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
+                path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+              )
+            ),
+            input(
+              `type` := "email",
+              name := "email",
+              placeholder := "mail@site.com",
+              required
             )
           ),
-          input(
-            `type` := "email",
-            name := "email",
-            placeholder := "mail@site.com",
-            required
-          )
+          a(
+            cls := "link text-sm",
+            onclick := "unsubscribe()",
+            tr"index.unsubscribe"
+          ),
+          div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
         ),
-        a(
-          cls := "link text-sm",
-          onclick := "unsubscribe()",
-          tr"index.unsubscribe"
-        ),
-        div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
-      ),
-      newsletterButton(tr"index.subscribe")(
-        cls := "btn btn-primary join-item",
-        tpe := "submit"
+        newsletterButton(tr"index.subscribe")(
+          cls := "btn btn-primary join-item",
+          tpe := "submit"
+        )
       )
     )
   )

@@ -30,7 +30,7 @@ def unsubscribe(email: String)(using lang: Translation) =
           cls := "flex flex-col items-center gap-10",
           form(
             id := "subscription_form",
-            onsubmit := "return onSubmit()",
+            onsubmit := "return onSubmit(this)",
             input(`type` := "hidden", name := "lang", value := lang.language),
             input(tpe := "hidden", name := "email", value := email),
             newsletterButton(tr"unsubscribe.resubscribe")(
