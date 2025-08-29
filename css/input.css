@@ -38,31 +38,36 @@
   --noise: 0;
 }
 
+.mockup-code {
+  color: #abb2bf;
+  background-color: #272c35;
+}
+
 .code-comment {
   color: #808080;
 }
 
 .code-keyword {
-  color: #CC7832;
+  color: #c678dd;
   font-weight: bold;
 }
 
 .code-number {
-  color: #6897BB;
+  color: #d19a66;
 }
 
 .code-parenthesis {
-  color: #FFC66D;
+  color: #56b6c2;
 }
 
 .code-string {
-  color: #6A8759;
+  color: #98c379;
 }
 
 .code-type {
-  color: #d7ba7d;
+  color: #e5c07b;
 }
 
 .code-variable {
-  color: #9876AA;
+  color: #abb2bf;
 }
