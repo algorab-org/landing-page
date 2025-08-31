@@ -2,6 +2,16 @@ package com.algorabedu.landing
 
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.string.Match
+import scalatags.Text.TypedTag
+import java.io.OutputStream
+
+implicit class TypedTagData(s: TypedTag[String])(implicit f: TypedTag[String] => geny.Writable) extends cask.Response.Data:
+  val writable = f(s)
+  def write(out: OutputStream) = writable.writeBytesTo(out)
+
+  def headers =
+    writable.httpContentType.map(tpe => "Content-Type" -> s"$tpe; charset=utf-8").toSeq ++
+    writable.contentLength.map("Content-Length" -> _.toString)
 
 private type EmailConstraint = DescribedAs[
   Match[
