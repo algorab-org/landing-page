@@ -22,14 +22,17 @@ def prefixedCode(modifiers: Modifier*)(lines: (String, Modifier)*): TypedTag[Str
 def prefixedCode(lines: (String, Modifier)*): TypedTag[String] =
   prefixedCode()(lines.map((a, b) => (a, b: Modifier))*)
 
-def numberedCode(modifiers: Modifier*)(text: String): TypedTag[String] =
+def numberedCode(modifiers: Modifier*)(text: String, highlight: Boolean = true): TypedTag[String] =
   prefixedCode(modifiers)(
-    highlightCode(text)
+    (
+      if highlight then highlightCode(text)
+      else Chunk.from(text.split("\n")).map(x => (x: Modifier))
+    )
       .zipWithIndex
       .map((l, i) => ((i + 1).toString, l))*
   )
 
-def numberedCode(text: String): TypedTag[String] = numberedCode()(text)
+def numberedCode(text: String): TypedTag[String] = numberedCode()(text, highlight = true)
 
 def unprefixedCode(modifiers: Modifier*)(text: String): TypedTag[String] =
   prefixedCode(modifiers)(text.split("\n").map(("", _))*)

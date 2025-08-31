@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets
 import java.util.Properties
 import scala.jdk.CollectionConverters.PropertiesHasAsScala
 import scala.util.Using
+import os.ResourceNotFoundException
 
 case class Translation(language: String, entries: Map[String, String], fallback: Option[Translation]):
 
@@ -24,14 +25,16 @@ object Translation:
   def load(language: String, fallback: Option[Translation] = None): Translation =
     val entries =
       val langResource = os.resource / "lang" / s"$language.lang"
-      val langStream = langResource.getInputStream
+      try
+        val langStream = langResource.getInputStream
 
-      if langStream == null then Map.empty
-      else
-        Using.resource(InputStreamReader(langStream, StandardCharsets.UTF_8)): data =>
-          val properties = Properties()
-          properties.load(data)
-          properties.asScala.toMap
+        if langStream == null then Map.empty
+        else
+          Using.resource(InputStreamReader(langStream, StandardCharsets.UTF_8)): data =>
+            val properties = Properties()
+            properties.load(data)
+            properties.asScala.toMap
+      catch case _: ResourceNotFoundException => Map.empty
 
     Translation(language, entries, fallback)
 

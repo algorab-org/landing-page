@@ -14,8 +14,10 @@ import scalatags.Text.svgTags.path
 import scalatags.Text.svgTags.rect
 import scalatags.Text.svgTags.svg
 import scalatags.text.Builder
+import java.util.UUID
 
 lazy val dataPrefix: Attr = attr("data-prefix")
+lazy val dataTip: Attr = attr("data-tip")
 
 val availableLanguages: Map[String, String] = Map(
   "fr" -> "🇫🇷",
@@ -67,5 +69,23 @@ def newsletterButton(text: String)(modifiers: Modifier*): TypedTag[String] =
     cls := "btn-newsletter swap swap-active",
     span(cls := "swap-on", text),
     span(cls := "swap-off loading loading-spinner place-self-center"),
+    modifiers
+  )
+
+case class TabsScope(name: String)
+
+def tabs(modifiers: TabsScope ?=> Modifier*): TypedTag[String] =
+  val scope = TabsScope("tab_" + UUID.randomUUID().toString())
+  div(
+    cls := "tabs",
+    modifiers.map(_(using scope))
+  )
+
+def radioTab(title: String)(modifiers: Modifier*)(using scope: TabsScope): TypedTag[String] =
+  input(
+    cls := "tab [--tab-border-color:gray]",
+    tpe := "radio",
+    name := scope.name,
+    aria.label := title,
     modifiers
   )

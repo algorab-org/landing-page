@@ -64,3 +64,8 @@ async function unsubscribe() {
 
   displayResult(await response.json())
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  Array.from(document.getElementsByClassName("indeterminate"))
+    .forEach(element => element.indeterminate = true)
+})
