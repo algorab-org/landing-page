@@ -1,14 +1,43 @@
-import $ivy.`com.lihaoyi::mill-contrib-twirllib:`
+import $ivy.`com.lihaoyi::mill-contrib-artifactory:`
+import $ivy.`de.tototec::de.tobiasroeser.mill.vcs.version::0.4.1`
 import $ivy.`io.github.iltotore::mill-tailwind::0.1.0`
 import $file.`dotenv`
 
-import mill._, dotenv._, scalalib._, scalafmt._
+import mill._, dotenv._, scalalib._, scalafmt._, publish._
+import mill.contrib.artifactory.ArtifactoryPublishModule
+
+import de.tobiasroeser.mill.vcs.version.VcsVersion
 import io.github.iltotore.tailwind.TailwindModule
 
-object `package` extends RootModule with ScalaModule with ScalafmtModule with TailwindModule with DotEnvModule {
+object `package` extends RootModule with ScalaModule with ScalafmtModule with TailwindModule with DotEnvModule with ArtifactoryPublishModule {
 
   def scalaVersion = "3.5.1"
   def tailwindVersion = "4.1.8"
+
+  def artifactName = "landing-page"
+
+  def publishVersion: T[String] = T {
+    VcsVersion.vcsState().format(untaggedSuffix = "-SNAPSHOT")
+  }
+
+  def pomSettings =
+    PomSettings(
+      description = "Algorab's landing page",
+      organization = "org.algorab",
+      url = "https://github.com/algorab-org/landing-page",
+      licenses = Seq(License.`Apache-2.0`),
+      versionControl = VersionControl.github("algorab-org", "landing-page"),
+      developers = Seq(
+        Developer("Algorab", "Algorab Team", "https://github.com/algorab-org")
+      )
+    )
+
+  def extraPublish = T {
+    Seq(PublishInfo(assembly(), classifier = Some("assembly"), ivyConfig = "compile"))
+  }
+
+  def artifactoryUri = "https://maven.pkg.github.com/algorab-org/landing-page"
+  def artifactorySnapshotUri = "https://maven.pkg.github.com/algorab-org/landing-page"
 
   def ivyDeps = Agg(
     ivy"com.github.daddykotex::courier:4.0.0-RC1",
