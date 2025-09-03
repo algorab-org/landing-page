@@ -16,7 +16,11 @@ import scala.concurrent.duration.DurationInt
 
 object Main extends cask.MainRoutes:
 
-  val domain = sys.env.getOrElse("DOMAIN", "localhost:8080")
+  override val host: String = sys.env.getOrElse("HOST", "localhost")
+
+  override val port: Int = sys.env.get("PORT").flatMap(_.toIntOption).getOrElse(8080)
+
+  val domain = sys.env.getOrElse("MAIL_DOMAIN", s"http://$host:$port")
 
   val dataSource = PGSimpleDataSource()
   dataSource.setURL(sys.env("DATABASE_URL"))
@@ -103,6 +107,8 @@ object Main extends cask.MainRoutes:
 
     postgresClient.transaction: db =>
       db.updateRaw(os.read(initResource, StandardCharsets.UTF_8))
+
+    println(s"Listening to $host:$port")
 
     initialize()
     super.main(args)

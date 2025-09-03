@@ -44,7 +44,7 @@ def subscribed(email: String, domain: String)(using lang: Translation) =
                   |padding: 16px 32px;
                   |font-size: 24px;
                   |text-decoration: none""".stripMargin,
-              href := s"http://$domain/unsubscribe?lang=${lang.language}&email=$email",
+              href := s"$domain/unsubscribe?lang=${lang.language}&email=$email",
               tr"index.unsubscribe"
             )
           )
