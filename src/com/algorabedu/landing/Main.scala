@@ -108,6 +108,9 @@ object Main extends cask.MainRoutes:
     postgresClient.transaction: db =>
       db.updateRaw(os.read(initResource, StandardCharsets.UTF_8))
 
+    //Preload page (current parser/highlighter is slow)
+    page.home(using Translation("dummy", Map.empty, None))
+    
     println(s"Listening to $host:$port")
 
     initialize()

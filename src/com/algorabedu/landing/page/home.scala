@@ -22,7 +22,7 @@ import scalatags.Text.tags2.summary
 import scalatags.Text.tags.tr as trow
 import scalatags.Text.tags2.{title => titleTag}
 
-lazy val headerCode: TypedTag[String] =
+val headerCode: TypedTag[String] =
   numberedCode(cls := "basis-1/2")(
     """enum Tree[cov Element]:
       |  case Leaf(value: Element)
@@ -39,22 +39,21 @@ lazy val headerCode: TypedTag[String] =
       |  case Node(_, children) then children.map(minMax).maximum""".stripMargin
   )
 
-//Pre-load code with highlighting
-lazy val quickStartCode: TypedTag[String] =
+val quickStartCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
     """println("Hello World")
       |val name = ask("What's your name?")
       |println("Hello $name!")""".stripMargin
   )
 
-lazy val quickStartPythonCode: TypedTag[String] =
+val quickStartPythonCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
     """print("Hello World")
       |name = input("What's your name?")
       |print(f"Hello {name}!")""".stripMargin
   )
 
-lazy val quickStartCCode: TypedTag[String] =
+val quickStartCCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
     """printf("Hello World\\n");
       |
@@ -65,7 +64,7 @@ lazy val quickStartCCode: TypedTag[String] =
   )
 
 
-lazy val expressivityCode: TypedTag[String] =
+val expressivityCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
     """enum LinkedList[A]:
       |  case Empty
@@ -76,7 +75,7 @@ lazy val expressivityCode: TypedTag[String] =
       |    case Node(head, tail) then Node(head, tail.append(element))""".stripMargin
   )
 
-lazy val expressivityPythonCode: TypedTag[String] =
+val expressivityPythonCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
     """class LinkedList:
       |    def append(self, element):
@@ -96,7 +95,7 @@ lazy val expressivityPythonCode: TypedTag[String] =
       |        return Node(self.head, self.tail.append(element))""".stripMargin
   )
 
-lazy val expressivityCCode: TypedTag[String] =
+val expressivityCCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
     """#include <stdlib.h>
       |
@@ -119,7 +118,7 @@ lazy val expressivityCCode: TypedTag[String] =
       |}""".stripMargin
   )
 
-lazy val assitanceCode: TypedTag[String] =
+val assitanceCode: TypedTag[String] =
   numberedCode(cls := "overflow-x-auto")(
     """record User(name: String, age: Int)
       |
@@ -127,7 +126,7 @@ lazy val assitanceCode: TypedTag[String] =
       |println("Hello ${user.username} !")""".stripMargin
   )
 
-lazy val professionalisationCode: TypedTag[String] =
+val professionalisationCode: TypedTag[String] =
   numberedCode(cls := "overflow-x-auto")(
     """---
       |Create a new user.
