@@ -245,7 +245,7 @@ def headerPart(using lang: Translation) =
 
 def pageSection(modifiers: Modifier*)(using Translation) =
   div(
-    cls := "flex flex-row min-w-full py-10 justify-center bg-primary",
+    cls := "flex flex-row min-w-full p-10 justify-center bg-primary",
     div(
       cls := "max-w-5xl justify-center",
       modifiers
@@ -374,7 +374,7 @@ def featureTable(using Translation) =
 
 def featuresPart(using Translation) =
   div(
-    cls := "w-full flex flex-row justify-center py-16 bg-base-200",
+    cls := "w-full flex flex-row justify-center py-16 px-10 bg-base-200",
     div(
       cls := "flex flex-col gap-16 max-w-5xl",
       featureHero(false, "quickstart")(
@@ -448,11 +448,11 @@ def indevPart(using lang: Translation) =
     div(
       cls := "flex flex-col max-w-5xl gap-5 justify-center items-center",
       h1(
-        cls := "text-4xl text-neutral text-center",
+        cls := "text-4xl text-center",
         tr"index.indev.title"
       ),
       p(
-        cls := "text-xl text-neutral text-center",
+        cls := "text-xl text-center",
         tr"index.indev.text"
       ),
       form(
