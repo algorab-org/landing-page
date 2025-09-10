@@ -38,6 +38,10 @@
   --noise: 0;
 }
 
+html, body {
+  min-width: fit-content;
+}
+
 .mockup-code {
   color: #abb2bf;
   background-color: #272c35;

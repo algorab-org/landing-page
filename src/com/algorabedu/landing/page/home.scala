@@ -443,7 +443,7 @@ def openSourcePart(using Translation) =
 
 def indevPart(using lang: Translation) =
   div(
-    cls := "flex flex-row min-w-full py-10 bg-base-200 justify-center",
+    cls := "flex flex-row min-w-full p-10 bg-base-200 justify-center",
     div(
       cls := "flex flex-col max-w-5xl gap-5 justify-center items-center",
       h1(
@@ -501,7 +501,7 @@ def indevPart(using lang: Translation) =
 
 def footerPart(using Translation) =
   footer(
-    cls := "footer footer-horizontal footer-center bg-base-200 text-neutral p-10",
+    cls := "footer footer-horizontal footer-center bg-base-200 p-10",
     aside(
       p(cls := "font-bold", "Algorab"),
       p(s"Copyright © ${Year.now} - All right reserved")
@@ -513,6 +513,7 @@ def home(using Translation) =
     head(
       titleTag("Algorab | Home"),
       meta(charset := "UTF-8"),
+      meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
       link(rel := "stylesheet", href := "/public/output.css"),
       script(src := "/public/js/index.js")
     ),
