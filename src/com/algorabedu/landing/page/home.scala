@@ -149,14 +149,20 @@ def navbar(using translation: Translation) =
   div(
     cls := "fixed top-0 z-1 w-full",
     div(
-      cls := "navbar bg-base-100 shadow-sm px-10 mb-5 min-h-0 h-15",
+      cls := "navbar bg-base-100 shadow-sm pl-10 pr-5 lg:pr-10 mb-5 min-h-0 h-15",
       div(
         cls := "navbar-start",
         a(cls := "font-bold text-2xl text-primary", "Algorab")
       ),
       ul(
         cls := "navbar-end menu menu-horizontal px-1 flex gap-1 text-xl",
-        li(a(cls := "btn btn-primary", href := "#header", tr"index.subscribe")),
+        li(
+            a(
+              cls := "btn btn-primary hidden md:flex",
+              href := "#header",
+              tr"index.subscribe"
+            )
+          ),
         li(
           details(
             summary(availableLanguages.getOrElse(translation.language, "?")),
