@@ -23,7 +23,7 @@ import scalatags.Text.tags.tr as trow
 import scalatags.Text.tags2.{title => titleTag}
 
 val headerCode: TypedTag[String] =
-  numberedCode(cls := "basis-1/2")(
+  numberedCode(cls := "basis-1/2 w-full")(
     """enum Tree[cov Element]:
       |  case Leaf(value: Element)
       |  case Node(value: Element, children: NonEmptyList[Tree[Element]])
@@ -36,7 +36,7 @@ val headerCode: TypedTag[String] =
       |-- Root is max
       |def maxMin[Element](tree: Element): Tree[Element] = tree match
       |  case Leaf(value)       then value
-      |  case Node(_, children) then children.map(minMax).maximum""".stripMargin
+      |  case Node(_, children) then children.map(minMax).maximum""".stripMargin,
   )
 
 val quickStartCode: TypedTag[String] =
@@ -178,7 +178,7 @@ def navbar(using translation: Translation) =
     ),
     div(
       id := "alert_container",
-      cls := "w-full flex flex-col items-center gap-3 m-w-xl"
+      cls := "w-full flex flex-col items-center gap-3"
     )
   )
 
@@ -187,7 +187,7 @@ def headerPart(using lang: Translation) =
     id := "header",
     cls := "hero bg-base-200 min-h-screen",
     div(
-      cls := "hero-content justify-evenly flex-col lg:flex-row gap-y-40",
+      cls := "@container hero-content justify-evenly flex-col lg:flex-row gap-y-40 w-full",
       div(
         cls := "basis-1/2",
         h1(cls := "text-center text-8xl font-bold text-primary py-6", "Algorab"),
@@ -275,7 +275,7 @@ def featureHero(reversed: Boolean, sectionId: String)(codeModifiers: Modifier*)(
         p(cls := "py-6 text-justify", tr"index.$sectionId.text")
         // button(cls := "btn btn-primary", tr"index.more")
       ),
-      div(cls := "basis-1/2 min-w-0", codeModifiers)
+      div(cls := "basis-1/2 min-w-0 w-full", codeModifiers)
     )
   )
 
@@ -303,67 +303,70 @@ def featureTable(using Translation) =
   )
 
   div(
-    cls := "flex flex-col items-center gap-5",
+    cls := "@container w-full flex flex-col items-center gap-5",
     h1(cls := "text-4xl text-center", tr"index.table.title"),
-    table(
-      cls := "table table-lg",
-      thead(
-        cls := "text-lg",
-        trow(
-          th(tr"index.table.feature"),
-          th(
-            div(
-              cls := "flex flex-row justify-center items-center gap-2",
-              img(
-                cls := "size-6",
-                src := "/public/img/python.png"
-              ),
-              "Python"
-            )
+    div(
+      cls := "w-full overflow-x-auto",
+      table(
+        cls := "table lg:table-lg max-w-full",
+        thead(
+          cls := "lg:text-lg",
+          trow(
+            th(tr"index.table.feature"),
+            th(
+              div(
+                cls := "flex flex-row justify-center items-center gap-2",
+                img(
+                  cls := "size-6",
+                  src := "/public/img/python.png"
+                ),
+                "Python"
+              )
+            ),
+            th(
+              div(
+                cls := "flex flex-row justify-center items-center gap-2",
+                img(
+                  cls := "size-6",
+                  src := "/public/img/c.png"
+                ),
+                "C"
+              )
+            ),
+            th(cls := "text-center text-primary", "Algorab")
+          )
+        ),
+        tbody(
+          trow(
+            td(tr"index.table.typing"),
+            no,
+            sortOf(tr"index.table.typing.c"),
+            yes
           ),
-          th(
-            div(
-              cls := "flex flex-row justify-center items-center gap-2",
-              img(
-                cls := "size-6",
-                src := "/public/img/c.png"
-              ),
-              "C"
-            )
+          trow(
+            td(tr"index.table.errors"),
+            sortOf(tr"index.table.errors.python"),
+            no,
+            yes
           ),
-          th(cls := "text-center text-primary", "Algorab")
-        )
-      ),
-      tbody(
-        trow(
-          td(tr"index.table.typing"),
-          no,
-          sortOf(tr"index.table.typing.c"),
-          yes
-        ),
-        trow(
-          td(tr"index.table.errors"),
-          sortOf(tr"index.table.errors.python"),
-          no,
-          yes
-        ),
-        trow(
-          td(tr"index.table.expressivity"),
-          no,
-          no,
-          yes
-        ),
-        trow(
-          td(tr"index.table.goodpractices"),
-          no,
-          no,
-          yes
-        ),
-        trow(
-          td(tr"index.table.ecosystem"),
-          yes,
-          yes,
-          no
+          trow(
+            td(tr"index.table.expressivity"),
+            no,
+            no,
+            yes
+          ),
+          trow(
+            td(tr"index.table.goodpractices"),
+            no,
+            no,
+            yes
+          ),
+          trow(
+            td(tr"index.table.ecosystem"),
+            yes,
+            yes,
+            no
+          )
         )
       )
     ),
@@ -379,7 +382,7 @@ def featuresPart(using Translation) =
       featureHero(false, "quickstart")(
         cls := "flex flex-col gap-3",
         tabs(
-          cls := "tabs-lift",
+          cls := "@container w-full tabs-lift",
 
           radioTab("Algorab")(checked := true),
           quickStartCode,
@@ -399,7 +402,7 @@ def featuresPart(using Translation) =
       ),
       featureHero(true, "expressivity")(
         tabs(
-          cls := "tabs-lift",
+          cls := "@container w-full tabs-lift",
           radioTab("Algorab")(checked := true),
           expressivityCode,
 
@@ -411,7 +414,7 @@ def featuresPart(using Translation) =
         )
       ),
       featureHero(false, "assistance")(
-        cls := "flex flex-col gap-3",
+        cls := "@container w-full flex flex-col gap-3",
         assitanceCode,
         unprefixedCode(cls := "overflow-x-auto")(
           """Error: Unknown record field.
@@ -423,7 +426,10 @@ def featuresPart(using Translation) =
             |      Did you mean user.name?""".stripMargin
         )
       ),
-      featureHero(true, "professionalisation")(professionalisationCode),
+      featureHero(true, "professionalisation")(
+        cls := "@container w-full",
+        professionalisationCode
+      ),
       featureTable
     )
   )
@@ -512,8 +518,11 @@ def home(using Translation) =
   html(
     head(
       titleTag("Algorab | Home"),
-      meta(charset := "UTF-8"),
-      meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
+      meta(
+        name := "viewport",
+        content := "width=device-width, initial-scale=1.0",
+        charset := "UTF-8"
+      ),
       link(rel := "stylesheet", href := "/public/output.css"),
       script(src := "/public/js/index.js")
     ),
