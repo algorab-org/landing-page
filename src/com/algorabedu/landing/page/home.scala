@@ -149,7 +149,7 @@ def navbar(using translation: Translation) =
   div(
     cls := "fixed top-0 z-1 w-full",
     div(
-      cls := "navbar bg-base-100 shadow-sm px-10 mb-5",
+      cls := "navbar bg-base-100 shadow-sm px-10 mb-5 min-h-0 h-15",
       div(
         cls := "navbar-start",
         a(cls := "font-bold text-2xl text-primary", "Algorab")
@@ -185,9 +185,9 @@ def navbar(using translation: Translation) =
 def headerPart(using lang: Translation) =
   header(
     id := "header",
-    cls := "hero bg-base-200 min-h-screen",
+    cls := "hero bg-base-200 h-screen pt-15",
     div(
-      cls := "@container hero-content justify-evenly flex-col lg:flex-row gap-y-40 w-full",
+      cls := "@container hero-content justify-evenly flex-col lg:flex-row w-full",
       div(
         cls := "basis-1/2",
         h1(cls := "text-center text-8xl font-bold text-primary py-6", "Algorab"),
@@ -197,7 +197,7 @@ def headerPart(using lang: Translation) =
         ),
         form(
           id := "subscription_form",
-          cls := "join w-full px-10",
+          cls := "join w-full px-10 hidden lg:inline-flex",
           onsubmit := "return onSubmit(this)",
           input(`type` := "hidden", name := "lang", value := lang.language),
           div(
@@ -303,7 +303,7 @@ def featureTable(using Translation) =
   )
 
   div(
-    cls := "@container w-full flex flex-col items-center gap-5",
+    cls := "w-full flex flex-col items-center gap-5",
     h1(cls := "text-4xl text-center", tr"index.table.title"),
     div(
       cls := "w-full overflow-x-auto",
