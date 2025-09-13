@@ -468,44 +468,47 @@ def indevPart(using lang: Translation) =
       ),
       form(
         id := "subscription_form",
-        cls := "join max-w-2xl px-10 py-10",
+        cls := "flex flex-col max-w-2xl px-10 py-10 gap-2",
         onsubmit := "return onSubmit(this)",
-        input(`type` := "hidden", name := "lang", value := lang.language),
         div(
-          cls := "w-full flex flex-col gap-2",
-          label(
-            cls := "input validator join-item w-full",
-            svg(
-              cls := "h-[1em] opacity-50",
-              xmlns := "http://www.w3.org/2000/svg",
-              viewBox := "0 0 24 24",
-              g(
-                attr("stroke-linejoin") := "round",
-                attr("stroke-linecap") := "round",
-                attr("stroke-width") := "2.5",
-                fill := "none",
-                stroke := "currentColor",
-                rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
-                path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+          cls := "join join-vertical md:join-horizontal",
+          input(`type` := "hidden", name := "lang", value := lang.language),
+          div(
+            cls := "w-full flex flex-col",
+            label(
+              cls := "input validator join-item w-full",
+              svg(
+                cls := "h-[1em] opacity-50",
+                xmlns := "http://www.w3.org/2000/svg",
+                viewBox := "0 0 24 24",
+                g(
+                  attr("stroke-linejoin") := "round",
+                  attr("stroke-linecap") := "round",
+                  attr("stroke-width") := "2.5",
+                  fill := "none",
+                  stroke := "currentColor",
+                  rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
+                  path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+                )
+              ),
+              input(
+                `type` := "email",
+                name := "email",
+                placeholder := "mail@site.com",
+                required
               )
             ),
-            input(
-              `type` := "email",
-              name := "email",
-              placeholder := "mail@site.com",
-              required
-            )
+            div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
           ),
-          a(
+          newsletterButton(tr"index.subscribe")(
+            cls := "btn btn-primary join-item",
+            tpe := "submit"
+          )
+        ),
+        a(
             cls := "link text-sm",
             onclick := "unsubscribe()",
             tr"index.unsubscribe"
-          ),
-          div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
-        ),
-        newsletterButton(tr"index.subscribe")(
-          cls := "btn btn-primary join-item",
-          tpe := "submit"
         )
       )
     )
