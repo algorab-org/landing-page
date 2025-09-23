@@ -102,6 +102,10 @@ object Main extends cask.MainRoutes:
   def preview() =
     mail.subscribed("foo@bar.com", "localhost:8080")(using Translation.load("fr"))
 
+  @cask.get("/privacy")
+  def privacy(lang: Translation = Translation.load(Translation.FallbackLanguage)) =
+    page.privacy(using lang)
+
   override def main(args: Array[String]): Unit =
     val initResource = os.resource / "init.sql"
 
