@@ -145,6 +145,27 @@ val professionalisationCode: TypedTag[String] =
       |  assertThrows(createUser("Sofia", -23), UserError.NegativeAge)""".stripMargin
   )
 
+def privacyPart(using lang: Translation) =
+  div(
+    cls := "flex flex-row text-sm gap-2",
+    input(
+      cls := "checkbox checkbox-primary checkbox-sm",
+      tpe := "checkbox",
+      name := "privacy",
+      required
+    ),
+    p(
+      tr"index.privacy" + " ",
+      a(
+        cls := "link",
+        href := s"/privacy?lang=${lang.language}",
+        target := "_blank",
+        tr"privacy.title"
+      )
+    )
+  )
+
+
 def navbar(using translation: Translation) =
   div(
     cls := "fixed top-0 z-1 w-full",
@@ -152,18 +173,12 @@ def navbar(using translation: Translation) =
       cls := "navbar bg-base-100 shadow-sm pl-10 pr-5 lg:pr-10 mb-5 min-h-0 h-15",
       div(
         cls := "navbar-start",
-        a(cls := "font-bold text-2xl text-primary", "Algorab")
+        a(href := "/", cls := "font-bold text-2xl text-primary", "Algorab")
       ),
       ul(
-        cls := "navbar-end menu menu-horizontal px-1 flex gap-1 text-xl",
+        cls := "navbar-end menu menu-horizontal px-1 flex gap-1",
         li(
-            a(
-              cls := "btn btn-primary hidden md:flex",
-              href := "#header",
-              tr"index.subscribe"
-            )
-          ),
-        li(
+          cls := "text-xl",
           details(
             summary(availableLanguages.getOrElse(translation.language, "?")),
             ul(
@@ -231,6 +246,7 @@ def headerPart(using lang: Translation) =
                 required
               )
             ),
+            privacyPart,
             a(
               cls := "link text-sm",
               onclick := "unsubscribe()",
@@ -505,6 +521,7 @@ def indevPart(using lang: Translation) =
             tpe := "submit"
           )
         ),
+        privacyPart,
         a(
             cls := "link text-sm",
             onclick := "unsubscribe()",
@@ -514,11 +531,12 @@ def indevPart(using lang: Translation) =
     )
   )
 
-def footerPart(using Translation) =
+def footerPart(using lang: Translation) =
   footer(
     cls := "footer footer-horizontal footer-center bg-base-200 p-10",
     aside(
       p(cls := "font-bold", "Algorab"),
+      a(cls := "link", href := s"/privacy?lang=${lang.language}", tr"privacy.title"),
       p(s"Copyright © ${Year.now} - All right reserved")
     )
   )

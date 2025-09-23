@@ -45,29 +45,32 @@ object Main extends cask.MainRoutes:
     page.home(using lang)
 
   @cask.postForm("/subscribe")
-  def subscribe(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String) =
-    val result = Email.option(email).fold(SubscriptionResult.InvalidEmail): _ =>
-      try
-        postgresClient.transaction: db =>
-          if db.runRaw[Int]("SELECT count(*) FROM newsletter WHERE email = ?", Seq(email)).sum == 0 then
-            db.updateRaw("INSERT INTO newsletter VALUES (?)", Seq(email))
-            mailer(
-              Envelope
-                .from("newsletter" `@` "algorab.org")
-                .to(InternetAddress(email))
-                .subject(lang("newsletter.subscribe.subject"))
-                .content(Multipart().html(mail.subscribed(email, domain)(using lang).render))
-            )
-            .onComplete:
-              case Success(_) =>
-              case Failure(exception) => exception.printStackTrace()
+  def subscribe(lang: Translation = Translation.load(Translation.FallbackLanguage), email: String, privacy: String = "off") =
+    val result =
+      if privacy == "on" then
+        Email.option(email).fold(SubscriptionResult.InvalidEmail): _ =>
+          try
+            postgresClient.transaction: db =>
+              if db.runRaw[Int]("SELECT count(*) FROM newsletter WHERE email = ?", Seq(email)).sum == 0 then
+                db.updateRaw("INSERT INTO newsletter VALUES (?)", Seq(email))
+                mailer(
+                  Envelope
+                    .from("newsletter" `@` "algorab.org")
+                    .to(InternetAddress(email))
+                    .subject(lang("newsletter.subscribe.subject"))
+                    .content(Multipart().html(mail.subscribed(email, domain)(using lang).render))
+                )
+                .onComplete:
+                  case Success(_) =>
+                  case Failure(exception) => exception.printStackTrace()
 
-            SubscriptionResult.Subscribed
-          else
-            SubscriptionResult.AlreadySubscribed
-      catch e =>
-        e.printStackTrace()
-        SubscriptionResult.MiscellaneousError
+                SubscriptionResult.Subscribed
+              else
+                SubscriptionResult.AlreadySubscribed
+          catch e =>
+            e.printStackTrace()
+            SubscriptionResult.MiscellaneousError
+      else SubscriptionResult.PrivacyNotChecked
 
     ujson.Obj(
       "successful" -> result.successful,
