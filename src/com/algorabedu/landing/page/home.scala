@@ -173,7 +173,7 @@ def navbar(using translation: Translation) =
       cls := "navbar bg-base-100 shadow-sm pl-10 pr-5 lg:pr-10 mb-5 min-h-0 h-15",
       div(
         cls := "navbar-start",
-        a(href := "/", cls := "font-bold text-2xl text-primary", "Algorab")
+        a(href := s"/?lang=${translation.language}", cls := "font-bold text-2xl text-primary", "Algorab")
       ),
       ul(
         cls := "navbar-end menu menu-horizontal px-1 flex gap-1",
