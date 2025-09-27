@@ -20,10 +20,13 @@ def privacy(using lang: Translation) =
     body(
       navbar,
       div(
-        cls := "bg-base-200 min-h-screen flex flex-col items-center gap-5 pt-20",
+        cls := "bg-base-200 min-h-screen flex flex-col items-center min-w-full",
+        div(
+          cls := "flex flex-col flex-grow items-center gap-7 pt-25 max-w-5xl items-center",
           h1(cls := "text-center text-5xl font-bold text-primary", tr"privacy.title"),
-          p(cls := "text-center text-xl", tr"privacy.content"),
-        )
-      ),
-      footerPart
+          p(cls := "text-justify text-xl", tr"privacy.content"),
+        ),
+        footerPart
+      )
     )
+  )
