@@ -16,10 +16,10 @@ import scalatags.Text.svgTags.g
 import scalatags.Text.svgTags.path
 import scalatags.Text.svgTags.rect
 import scalatags.Text.svgTags.svg
+import scalatags.Text.tags.tr as trow
 import scalatags.Text.tags2.aside
 import scalatags.Text.tags2.details
 import scalatags.Text.tags2.summary
-import scalatags.Text.tags.tr as trow
 import scalatags.Text.tags2.{title => titleTag}
 
 val headerCode: TypedTag[String] =
@@ -36,7 +36,7 @@ val headerCode: TypedTag[String] =
       |-- Root is max
       |def maxMin[Element](tree: Element): Tree[Element] = tree match
       |  case Leaf(value)       then value
-      |  case Node(_, children) then children.map(minMax).maximum""".stripMargin,
+      |  case Node(_, children) then children.map(minMax).maximum""".stripMargin
   )
 
 val quickStartCode: TypedTag[String] =
@@ -62,7 +62,6 @@ val quickStartCCode: TypedTag[String] =
       |
       |printf("Hello %s!\\n");""".stripMargin
   )
-
 
 val expressivityCode: TypedTag[String] =
   numberedCode(cls := "tab-content overflow-x-auto")(
@@ -165,7 +164,6 @@ def privacyPart(using lang: Translation) =
     )
   )
 
-
 def navbar(using translation: Translation) =
   div(
     cls := "fixed top-0 z-1 w-full",
@@ -218,45 +216,48 @@ def headerPart(using lang: Translation) =
         ),
         form(
           id := "subscription_form",
-          cls := "join w-full px-10 hidden lg:inline-flex",
+          cls := "hidden lg:inline-flex flex-col max-w-2xl px-10 py-10 gap-2",
           onsubmit := "return onSubmit(this)",
-          input(`type` := "hidden", name := "lang", value := lang.language),
           div(
-            cls := "w-full flex flex-col gap-2",
-            label(
-              cls := "input validator join-item w-full",
-              svg(
-                cls := "h-[1em] opacity-50",
-                xmlns := "http://www.w3.org/2000/svg",
-                viewBox := "0 0 24 24",
-                g(
-                  attr("stroke-linejoin") := "round",
-                  attr("stroke-linecap") := "round",
-                  attr("stroke-width") := "2.5",
-                  fill := "none",
-                  stroke := "currentColor",
-                  rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
-                  path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+            cls := "join join-vertical md:join-horizontal",
+            input(`type` := "hidden", name := "lang", value := lang.language),
+            div(
+              cls := "w-full flex flex-col",
+              label(
+                cls := "input validator join-item w-full",
+                svg(
+                  cls := "h-[1em] opacity-50",
+                  xmlns := "http://www.w3.org/2000/svg",
+                  viewBox := "0 0 24 24",
+                  g(
+                    attr("stroke-linejoin") := "round",
+                    attr("stroke-linecap") := "round",
+                    attr("stroke-width") := "2.5",
+                    fill := "none",
+                    stroke := "currentColor",
+                    rect(width := "20", height := "16", x := "2", y := "4", rx := "2"),
+                    path(d := "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7")
+                  )
+                ),
+                input(
+                  `type` := "email",
+                  name := "email",
+                  placeholder := "mail@site.com",
+                  required
                 )
               ),
-              input(
-                `type` := "email",
-                name := "email",
-                placeholder := "mail@site.com",
-                required
-              )
+              div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
             ),
-            privacyPart,
-            a(
-              cls := "link text-sm",
-              onclick := "unsubscribe()",
-              tr"index.unsubscribe"
-            ),
-            div(cls := "validator-hint hidden", tr"index.subscription.invalidemail")
+            newsletterButton(tr"index.subscribe")(
+              cls := "btn btn-primary join-item",
+              tpe := "submit"
+            )
           ),
-          newsletterButton(tr"index.subscribe")(
-            cls := "btn btn-primary join-item",
-            tpe := "submit"
+          privacyPart,
+          a(
+            cls := "link text-sm",
+            onclick := "unsubscribe()",
+            tr"index.unsubscribe"
           )
         )
       ),
@@ -395,7 +396,6 @@ def featureTable(using Translation) =
     label(cls := "text-md self-start", tr"index.table.soon")
   )
 
-
 def featuresPart(using Translation) =
   div(
     cls := "w-full flex flex-row justify-center py-16 px-10 bg-base-200",
@@ -405,13 +405,10 @@ def featuresPart(using Translation) =
         cls := "flex flex-col gap-3",
         tabs(
           cls := "@container w-full tabs-lift",
-
           radioTab("Algorab")(checked := true),
           quickStartCode,
-
           radioTab("Python")(),
           quickStartPythonCode,
-
           radioTab("C")(),
           quickStartCCode
         ),
@@ -427,10 +424,8 @@ def featuresPart(using Translation) =
           cls := "@container w-full tabs-lift",
           radioTab("Algorab")(checked := true),
           expressivityCode,
-
           radioTab("Python")(),
           expressivityPythonCode,
-
           radioTab("C")(),
           expressivityCCode
         )
@@ -523,9 +518,9 @@ def indevPart(using lang: Translation) =
         ),
         privacyPart,
         a(
-            cls := "link text-sm",
-            onclick := "unsubscribe()",
-            tr"index.unsubscribe"
+          cls := "link text-sm",
+          onclick := "unsubscribe()",
+          tr"index.unsubscribe"
         )
       )
     )
