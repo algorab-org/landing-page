@@ -306,22 +306,22 @@ def featureTable(using Translation) =
   val yes = td(
     div(
       cls := "flex flex-row justify-center",
-      input(tpe := "checkbox", cls := "checkbox checkbox-primary", checked, onclick := "return false")
+      input(tpe := "checkbox", cls := "checkbox checkbox-primary cursor-default", checked, onclick := "return false")
     )
   )
 
   val no = td(
     div(
       cls := "flex flex-row justify-center",
-      input(tpe := "checkbox", cls := "checkbox checkbox-primary", onclick := "return false")
+      input(tpe := "checkbox", cls := "checkbox checkbox-primary cursor-default", onclick := "return false")
     )
   )
 
   def sortOf(reason: String) = td(
     div(
-      cls := "flex flex-row justify-center tooltip",
+      cls := "flex flex-row justify-center tooltip cursor-help",
       attr("data-tip") := reason,
-      input(tpe := "checkbox", cls := "checkbox checkbox-primary indeterminate", onclick := "return false")
+      input(tpe := "checkbox", cls := "checkbox checkbox-primary indeterminate cursor-none", onclick := "return false")
     )
   )
 
