@@ -13,7 +13,7 @@ import io.github.iltotore.tailwind.TailwindModule
 
 object `package` extends ScalaModule, ScalafmtModule, TailwindModule, DotEnvModule, ArtifactoryPublishModule:
 
-  def scalaVersion = "3.5.1"
+  def scalaVersion = "3.8.3"
   def tailwindVersion = "4.1.8"
 
   def artifactName = "landing-page"
