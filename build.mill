@@ -1,24 +1,24 @@
-import $ivy.`com.lihaoyi::mill-contrib-artifactory:`
-import $ivy.`de.tototec::de.tobiasroeser.mill.vcs.version::0.4.1`
-import $ivy.`io.github.iltotore::mill-tailwind::0.1.0`
-import $file.`dotenv`
+//| mill-version: 1.1.6
+//| mvnDeps:
+//| - com.lihaoyi::mill-contrib-artifactory:$MILL_VERSION
+//| - io.github.iltotore::mill-tailwind::0.1.1
 
-import mill._, dotenv._, scalalib._, scalafmt._, publish._
+package build
+
+import mill.*, scalalib.*, scalafmt.*, publish.*
 import mill.contrib.artifactory.ArtifactoryPublishModule
 
-import de.tobiasroeser.mill.vcs.version.VcsVersion
+import mill.util.VcsVersion
 import io.github.iltotore.tailwind.TailwindModule
 
-object `package` extends RootModule with ScalaModule with ScalafmtModule with TailwindModule with DotEnvModule with ArtifactoryPublishModule {
+object `package` extends ScalaModule, ScalafmtModule, TailwindModule, DotEnvModule, ArtifactoryPublishModule:
 
   def scalaVersion = "3.5.1"
   def tailwindVersion = "4.1.8"
 
   def artifactName = "landing-page"
 
-  def publishVersion: T[String] = T {
-    VcsVersion.vcsState().format(untaggedSuffix = "-SNAPSHOT")
-  }
+  def publishVersion = Task(VcsVersion.vcsState().format(untaggedSuffix = "-SNAPSHOT"))
 
   def pomSettings =
     PomSettings(
@@ -32,21 +32,20 @@ object `package` extends RootModule with ScalaModule with ScalafmtModule with Ta
       )
     )
 
-  def extraPublish = T {
+  def extraPublish = Task(
     Seq(PublishInfo(assembly(), classifier = Some("assembly"), ivyConfig = "compile"))
-  }
+  )
 
   def artifactoryUri = "https://maven.pkg.github.com/algorab-org/landing-page"
   def artifactorySnapshotUri = "https://maven.pkg.github.com/algorab-org/landing-page"
 
-  def ivyDeps = Agg(
-    ivy"com.github.daddykotex::courier:4.0.0-RC1",
-    ivy"com.lihaoyi::cask:0.9.2",
-    ivy"com.lihaoyi::os-lib:0.11.3",
-    ivy"com.lihaoyi::scalatags:0.13.1",
-    ivy"com.lihaoyi::scalasql:0.1.11",
-    ivy"dev.zio::zio-parser:0.1.11",
-    ivy"io.github.iltotore::iron:2.6.0",
-    ivy"org.postgresql:postgresql:42.7.4"
+  def mvnDeps = Seq(
+    mvn"com.github.daddykotex::courier:4.0.0-RC1",
+    mvn"com.lihaoyi::cask:0.9.2",
+    mvn"com.lihaoyi::os-lib:0.11.3",
+    mvn"com.lihaoyi::scalatags:0.13.1",
+    mvn"com.lihaoyi::scalasql:0.1.11",
+    mvn"dev.zio::zio-parser:0.1.11",
+    mvn"io.github.iltotore::iron:2.6.0",
+    mvn"org.postgresql:postgresql:42.7.4"
   )
-}
