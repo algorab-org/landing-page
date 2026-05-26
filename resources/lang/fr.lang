@@ -25,6 +25,7 @@ index.table.errors.python=Du fait de son typage dynamique, les erreurs tendent �
 index.table.expressivity=Expressivité
 index.table.goodpractices=Enseignement des bonnes pratiques
 index.table.ecosystem=Écosystème riche
+index.table.ecosystem.algorab=Écosystème moins vaste mais concentré sur les besoins éducatifs : bibliothèque standard adaptée, documentation, cours...
 index.table.soon=Une comparaison plus en profondeur sera disponible lorsque le projet sera plus avancé.
 index.opensource.title=Éthique et libre
 index.opensource.text=Si certaines entreprises se focalisent sur la maximisation de la rentabilité, nous avons choisi d'avoir un impact social. Nous sommes sensibles aux enjeux de l'enseignement et de la recherche scientifique. Algorab est sous licence libre permettant à chacun d'utiliser, étudier, modifier et redistribuer le projet, favorisant le partage de la connaissance et la collaboration dans le but de servir le bien commun.

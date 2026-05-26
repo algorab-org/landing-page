@@ -317,11 +317,12 @@ def featureTable(using Translation) =
     )
   )
 
-  def sortOf(reason: String) = td(
+  def sortOf(reason: String, modifiers: Modifier*) = td(
     div(
       cls := "flex flex-row justify-center tooltip cursor-help",
       attr("data-tip") := reason,
-      input(tpe := "checkbox", cls := "checkbox checkbox-primary indeterminate cursor-none", onclick := "return false")
+      input(tpe := "checkbox", cls := "checkbox checkbox-primary indeterminate cursor-help", onclick := "return false"),
+      modifiers
     )
   )
 
@@ -329,7 +330,7 @@ def featureTable(using Translation) =
     cls := "w-full flex flex-col items-center gap-5",
     h1(cls := "text-4xl text-center", tr"index.table.title"),
     div(
-      cls := "w-full overflow-x-auto",
+      cls := "w-full overflow-x-auto overflow-y-hidden",
       table(
         cls := "table lg:table-lg max-w-full",
         thead(
@@ -388,7 +389,7 @@ def featureTable(using Translation) =
             td(tr"index.table.ecosystem"),
             yes,
             yes,
-            no
+            sortOf(tr"index.table.ecosystem.algorab", cls := "lg:tooltip-left")
           )
         )
       )

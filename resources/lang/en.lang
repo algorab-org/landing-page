@@ -25,6 +25,7 @@ index.table.errors.python=Due to dynamic typing errors tend point to the wrong l
 index.table.expressivity=Expressivity
 index.table.goodpractices=Teaching good practices
 index.table.ecosystem=Rich ecosystem
+index.table.ecosystem.algorab=Smaller ecosystem but suited to educational needs : tailored standard library, documentation, courses...
 index.table.soon=A more detailed comparison will be available when the project will be in a more mature state.
 index.opensource.title=Free as in freedom
 index.opensource.text=While some companies focus on maximising profitability, we have chosen to have a social impact. We are concerned about education and scientific research. Algorab is licensed under a free software licence, allowing anyone to use, study, modify and redistribute the project, promoting knowledge sharing and collaboration a sustainable future.
